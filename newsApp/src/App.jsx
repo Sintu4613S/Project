@@ -1,13 +1,13 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
+import NavBar from './Component/NavBar'
 import './App.css'
+import News from './Component/News';
 
 function App() {
   return (
     <>
-      <h1>Thi is a Parent of the Other folder</h1>
+      <NavBar />
+      <News />
     </>
   );
 }

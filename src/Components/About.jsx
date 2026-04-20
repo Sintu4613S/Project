@@ -1,32 +1,17 @@
 import React, { useState } from "react";
 
 export default function About(props) {
-  const [myStyle, setMyStyle] = useState({
-    color: "black",
-    backgroundColor: "white",
-  });
-  const [btnText, setBtnText] = useState("Enable Dark Mode");
-  const togglesStyle = () => {
-    if (myStyle.color === "white") {
-      setMyStyle({
-        color: "black",
-        backgroundColor: "white",
-      });
-      setBtnText("Enable Dark Mode");
-    } else {
-      setMyStyle({
-        color: "white",
-        backgroundColor: "black",
-      });
-      setBtnText("Enable Light Mode");
-    }
-  };
+
+  let myStyle = {
+    color: props.mode === 'dark' ? 'white' : 'black',
+    backgroundColor: props.mode === 'dark' ? '#0b2c4f' : 'white',
+  }
   return (
     <>
       <h1 style={{ color: props.mode === 'light' ? 'black' : 'white', textAlign: 'center' }}>About Us</h1>
-      <div className="container" style={myStyle}>
-        <div className="accordion" id="accordionExample">
-          <div className="accordion-item">
+      <div className="container" >
+        <div className="accordion" id="accordionExample" >
+          <div className="accordion-item" style={myStyle}>
             <h2 className="accordion-header">
               <button
                 className="accordion-button"
@@ -36,6 +21,7 @@ export default function About(props) {
                 aria-expanded="true"
                 aria-controls="collapseOne"
                 style={myStyle}
+
               >
                 Accordion Item #1
               </button>
@@ -45,7 +31,7 @@ export default function About(props) {
               className="accordion-collapse collapse show"
               data-bs-parent="#accordionExample"
             >
-              <div className="accordion-body" style={myStyle}>
+              <div className="accordion-body" style={myStyle} >
                 <strong>This is the first item’s accordion body.</strong> It is
                 shown by default, until the collapse plugin adds the appropriate
                 classes that we use to style each element. These classes control
@@ -58,7 +44,7 @@ export default function About(props) {
               </div>
             </div>
           </div>
-          <div className="accordion-item">
+          <div className="accordion-item" style={myStyle}>
             <h2 className="accordion-header">
               <button
                 className="accordion-button collapsed"
@@ -90,7 +76,7 @@ export default function About(props) {
               </div>
             </div>
           </div>
-          <div className="accordion-item">
+          <div className="accordion-item" style={myStyle}>
             <h2 className="accordion-header">
               <button
                 className="accordion-button collapsed"
@@ -121,11 +107,6 @@ export default function About(props) {
                 overflow.
               </div>
             </div>
-          </div>
-        </div>
-        <div className="container my-3">
-          <div className=" btn btn-primary" onClick={togglesStyle}>
-            {btnText}
           </div>
         </div>
       </div>

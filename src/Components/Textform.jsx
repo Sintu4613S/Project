@@ -21,40 +21,40 @@ export default function Textform(props) {
           />
         </div>
         <button
-          className="btn btn-outline-success mx-2"
+          className="btn btn-outline-success mx-2 my-2"
           onClick={() => handleUPclick(text, setText)}
         >
           Convert To UpperCase
         </button>
         <button
-          className="btn btn-outline-success mx-2"
+          className="btn btn-outline-success mx-2 my-2"
           onClick={() => handleLOclick(text, setText)}
         >
           Convert To LowerCase
         </button>
         <button
-          className="btn btn-outline-success mx-2"
+          className="btn btn-outline-success mx-2 my-2"
           onClick={() => setText("")}
         >
           Clear Text
         </button>
         <button
-          className="btn btn-outline-success mx-2"
+          className="btn btn-outline-success mx-2 my-2"
           onClick={() => setText(text.split("").reverse().join(""))}
         >
           Reverse Text
         </button>
         <button
-          className="btn btn-outline-success mx-2"
+          className="btn btn-outline-success mx-2 my-2"
           onClick={() => speak(text)}
         >
           Speak
         </button>
       </div>
       <div className="container my-3" style={{ color: props.mode === 'dark' ? 'white' : 'black' }}>
-        <h2>Your Text Summary</h2>
+        <h3>Your Text Summary</h3>
         <p>
-          {text.split(" ").length} Words and {text.length} Characters
+          {text.split(" ").filter((element) => { return element.length !== 0 }).length} Words and {text.length} Characters
         </p>
         <h3>Preview</h3>
         <p>{text.length > 0 ? text : "Enter Something To Preview It Here"}</p>

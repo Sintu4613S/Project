@@ -35,7 +35,7 @@ function App() {
       {/* <Navbar /> */}
       <Routes>
         <Route exact path="/about" element={<About mode={mode} />} />
-        <Route exact path="/home" element={<Textform heading="Enter the text to analyze" mode={mode} />} />
+        <Route exact path="/home" element={<Textform heading="Word Counter- count word,Lower To Upper,Reverse Text" mode={mode} />} />
         <Route exact path="/contact" element={<Contact mode={mode} />} />
         <Route exact path="*" element={<h1 className="pg" style={{ textAlign: 'center', backgroundColor: 'red' }}>404- Page Not Found</h1>} />
       </Routes>

@@ -67,6 +67,7 @@ export class News extends Component {
   state = {
     articles: [],
     loading: false,
+    page: 1
   }
   // Now Use The Internet API To Fetch The Data And Display It On The Website. by using componentDidMount() lifecycle method to fetch the data from the API and update the state with the fetched data.
 

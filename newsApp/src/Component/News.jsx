@@ -67,7 +67,8 @@ export class News extends Component {
   state = {
     articles: [],
     loading: false,
-    page: 1
+    page: 1,
+    nextPage: null
   }
   // Now Use The Internet API To Fetch The Data And Display It On The Website. by using componentDidMount() lifecycle method to fetch the data from the API and update the state with the fetched data.
 
@@ -75,29 +76,21 @@ export class News extends Component {
     let url = ('https://newsdata.io/api/1/latest?apikey=pub_26981ed149984906b6f41149b6c97511&q=Business,Stocks&country=in&language=en')
     let data = await fetch(url)
     let parsedData = await data.json()
-    this.setState({ articles: parsedData.results })
+    this.setState({
+      articles: parsedData.results,
+      nextPage: parsedData.nextPage
+
+    })
   }
   handleNext = async () => {
-    let url = (`https://newsdata.io/api/1/latest?apikey=pub_26981ed149984906b6f41149b6c97511&q=Business,Stocks&country=in&language=en&page=${this.state.page + 1}`)
+    let url = (`https://newsdata.io/api/1/latest?apikey=pub_26981ed149984906b6f41149b6c97511&q=Business,Stocks&country=in&language=en&page=${this.state.nextPage}`)
     let data = await fetch(url)
     let parsedData = await data.json()
     this.setState({
       articles: parsedData.results,
+      nextPage: parsedData.nextPage,
       page: this.state.page + 1
     })
-  }
-  handlePrev = async () => {
-    if (this.state.page > 1) {
-      console.log('licked')
-      let url = (`https://newsdata.io/api/1/latest?apikey=pub_26981ed149984906b6f41149b6c97511&q=Business,Stocks&country=in&language=en&page=${this.state.page - 1}`)
-      let data = await fetch(url)
-      let parsedData = await data.json()
-      this.setState({
-        articles: parsedData.results,
-        page: this.state.page - 1
-      })
-    }
-
   }
   render() {
     return (

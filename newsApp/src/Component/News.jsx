@@ -61,22 +61,59 @@ export class News extends Component {
   //     },
   //   ]
   // state = {
-  //   articles: this.data,
+  //   articles: this.articles, `   
   //   loading: false,
   // }
+  state = {
+    articles: [],
+    loading: false,
+  }
+  // Now Use The Internet API To Fetch The Data And Display It On The Website. by using componentDidMount() lifecycle method to fetch the data from the API and update the state with the fetched data.
 
+  async componentDidMount() {
+    let url = ('https://newsdata.io/api/1/latest?apikey=pub_26981ed149984906b6f41149b6c97511&q=Business,Stocks&country=in&language=en')
+    let data = await fetch(url)
+    let parsedData = await data.json()
+    this.setState({ articles: parsedData.results })
+  }
+  handleNext = async () => {
+    let url = (`https://newsdata.io/api/1/latest?apikey=pub_26981ed149984906b6f41149b6c97511&q=Business,Stocks&country=in&language=en&page=${this.state.page + 1}`)
+    let data = await fetch(url)
+    let parsedData = await data.json()
+    this.setState({
+      articles: parsedData.results,
+      page: this.state.page + 1
+    })
+  }
+  handlePrev = async () => {
+    if (this.state.page > 1) {
+      console.log('licked')
+      let url = (`https://newsdata.io/api/1/latest?apikey=pub_26981ed149984906b6f41149b6c97511&q=Business,Stocks&country=in&language=en&page=${this.state.page - 1}`)
+      let data = await fetch(url)
+      let parsedData = await data.json()
+      this.setState({
+        articles: parsedData.results,
+        page: this.state.page - 1
+      })
+    }
+
+  }
   render() {
     return (
       <div className='container'>
-        <h1> News-Top HeadLines</h1>
+        <h1 className="text-center my-4"> News-Top HeadLines</h1>
         <div className="row" >
           {this.state.articles.map((element) => {
             return (
-              <div className="col-md-4" key={element.id}>
-                <NewsItem title={element.title ? element.title.slice(0, 50) : ""} desc={element.description ? element.description.slice(0, 80) : ""} ImgUrl={element.image_url} link={element.url} />
+              <div className="col-md-4" key={element.article_id}>
+                <NewsItem title={element.title ? element.title.slice(0, 50) : ""} desc={element.description ? element.description.slice(0, 80) : ""} ImgUrl={element.image_url ? element.image_url : "https://images.timesnownews.com/thumb/msid-154124238,width-1280,height-720,resizemode-75/154124238.jpg"} link={element.link} />
               </div>
             )
           })}
+        </div>
+        <div className="d-flex justify-content-evenly">
+          <button type="button" disabled={this.state.page <= 1} className="btn btn-dark" onClick={this.handlePrev}>&larr;Previous</button>
+          <button type="button" className="btn btn-dark" onClick={this.handleNext}>Next &rarr;</button>
         </div>
       </div>
     )

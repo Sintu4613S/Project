@@ -3,8 +3,8 @@ import React, { Component } from 'react'
 export class Loading extends Component {
   render() {
     return (
-      <div>
-        <img src="loading.gif" alt="Loading....." />
+      <div className='text-center my-3'>
+        <img src="loading.gif" alt="Loading....." style={{ width: '80px' }} />
       </div>
     )
   }

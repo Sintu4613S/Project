@@ -4,7 +4,7 @@ export class Loading extends Component {
   render() {
     return (
       <div>
-
+        <img src="loading.gif" alt="Loading....." />
       </div>
     )
   }

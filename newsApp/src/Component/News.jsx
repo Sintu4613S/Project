@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import NewsItem from './NewsItem'
+import Loading from './Loading'
 
 export class News extends Component {
   state = {
@@ -46,6 +47,7 @@ export class News extends Component {
         <div className="container">
           <h1 className='my-4 text-center'>News- Top HeadLines</h1>
           <div className='container my-3'>
+            <Loading />
             <div className="row">
               {/* {this.state.articles?.map((element) => { */}
               {/* if the articles is exist ,map over them and return a list item for each */}

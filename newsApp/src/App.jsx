@@ -6,9 +6,8 @@ function App() {
   return (
     <>
 
-
+      <NavBar />
       <Routes>
-        <NavBar />
         <Route exact path="/home" element={<News pageSize={10} category='general' />} />
         <Route exact path="/general" element={<News pageSize={10} category='general' />} />
         <Route exact path="/business" element={<News pageSize={10} category='business' />} />

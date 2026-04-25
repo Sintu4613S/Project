@@ -8,9 +8,10 @@ function App() {
 
       <NavBar />
       <Routes>
-        <Route key="general" exact path="/home" element={<News pageSize={10} category='general' />} />
+        <Route key="general" exact path="/" element={<News pageSize={10} category='general' />} />
         <Route key="general" exact path="/general" element={<News pageSize={10} category='general' />} />
         <Route key="business" exact path="/business" element={<News pageSize={10} category='business' />} />
+        <Route key="general" exact path="/general" element={<News pageSize={10} category='general' />} />
         <Route key="health" exact path="/entertainment" element={<News pageSize={10} category='health' />} />
         <Route key="science" exact path="/science" element={<News pageSize={10} category='science' />} />
         <Route key="sports" exact path="/sports" element={<News pageSize={10} category='sports' />} />

@@ -1,16 +1,27 @@
 import React, { Component } from 'react'
 import NewsItem from './NewsItem'
 import Loading from './Loading'
+import PropTypes from 'prop-types'
 
 export class News extends Component {
+  static defaultProps = {
+    country: 'in',
+    pageSize: 10,
+    category: 'general'
+  }
+  static protoTypes = {
+    country: PropTypes.string,
+    pageSize: PropTypes.number,
+    category: PropTypes.string,
+  }
   state = {
     articles: [],
     loading: false,
     page: 1,
-    totalResults: 1561
+    totalResults: 1561,
   }
   async componentDidMount() {
-    let url = (`https://newsapi.org/v2/everything?q=cricket&from=from=2026-03-25&sortBy=publishedAt&apiKey=8f5eefadd07341a8ac2f4b3c90a296ac&page=1&pageSize=${this.props.pageSize}`)
+    let url = (`https://newsapi.org/v2/everything?q=${this.props.category}&from=from=2026-03-25&sortBy=publishedAt&apiKey=8f5eefadd07341a8ac2f4b3c90a296ac&page=1&pageSize=${this.props.pageSize}`)
     this.setState({ loading: true })
     let data = await fetch(url)
     let parseData = await data.json()
@@ -22,7 +33,7 @@ export class News extends Component {
   }
   handleNext = async () => {
     // console.log("hi i am next")
-    let url = (`https://newsapi.org/v2/everything?q=cricket&from=from=2026-03-25&sortBy=publishedAt&apiKey=8f5eefadd07341a8ac2f4b3c90a296ac&page=${this.state.page + 1}&pageSize=${this.props.pageSize}`)
+    let url = (`https://newsapi.org/v2/everything?q=${this.props.category}&from=from=2026-03-25&sortBy=publishedAt&apiKey=8f5eefadd07341a8ac2f4b3c90a296ac&page=${this.state.page + 1}&pageSize=${this.props.pageSize}`)
     this.setState({ loading: true })
     let data = await fetch(url)
     let parseData = await data.json()
@@ -36,7 +47,7 @@ export class News extends Component {
   handlePrevious = async () => {
     if (this.state.page > 1) {
       // console.log("hi i am previous")
-      let url = (`https://newsapi.org/v2/everything?q=cricket&from=2026-03-25&sortBy=publishedAt&apiKey=8f5eefadd07341a8ac2f4b3c90a296ac&page=${this.state.page - 1}&pageSize=${this.props.pageSize}`)
+      let url = (`https://newsapi.org/v2/everything?q=${this.props.category}&from=2026-03-25&sortBy=publishedAt&apiKey=8f5eefadd07341a8ac2f4b3c90a296ac&page=${this.state.page - 1}&pageSize=${this.props.pageSize}`)
       this.setState({ loading: true })
       let data = await fetch(url)
       let parseData = await data.json()
@@ -48,9 +59,9 @@ export class News extends Component {
 
     }
 
-
-
   }
+
+
   render() {
     return (
       <>

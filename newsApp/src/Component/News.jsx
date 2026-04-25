@@ -18,7 +18,7 @@ export class News extends Component {
     articles: [],
     loading: false,
     page: 1,
-    totalResults: 1561,
+    totalResults: 0
   }
   async componentDidMount() {
     let url = (`https://newsapi.org/v2/top-headlines?category=${this.props.category}&from=from=2026-03-25&sortBy=publishedAt&apiKey=8f5eefadd07341a8ac2f4b3c90a296ac&page=1&pageSize=${this.props.pageSize}`)
@@ -28,6 +28,7 @@ export class News extends Component {
     this.setState({
       articles: parseData.articles,
       loading: false,
+      totalResults: parseData.totalResults
     })
     console.log(parseData)
   }
@@ -41,6 +42,7 @@ export class News extends Component {
       articles: parseData.articles,
       loading: false,
       page: this.state.page + 1,
+      totalResults: parseData.totalResults
 
     })
   }
@@ -55,6 +57,7 @@ export class News extends Component {
         articles: parseData.articles,
         loading: false,
         page: this.state.page - 1,
+        totalResults: parseData.totalResults
       })
 
     }

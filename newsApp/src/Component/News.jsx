@@ -4,15 +4,15 @@ import Loading from './Loading'
 import PropTypes from 'prop-types'
 
 export class News extends Component {
-  static defaultProps = {
+  static defaulProps = {
     country: 'in',
-    pageSize: 10,
-    category: 'general'
+    category: 'general',
+    page: 10
   }
-  static protoTypes = {
+  static PropTypes = {
     country: PropTypes.string,
-    pageSize: PropTypes.number,
     category: PropTypes.string,
+    page: PropTypes.number
   }
   state = {
     articles: [],

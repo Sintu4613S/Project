@@ -8,13 +8,13 @@ function App() {
 
       <NavBar />
       <Routes>
-        <Route exact path="/home" element={<News pageSize={10} category='general' />} />
-        <Route exact path="/general" element={<News pageSize={10} category='general' />} />
-        <Route exact path="/business" element={<News pageSize={10} category='business' />} />
-        <Route exact path="/entertainment" element={<News pageSize={10} category='health' />} />
-        <Route exact path="/science" element={<News pageSize={10} category='science' />} />
-        <Route exact path="/sports" element={<News pageSize={10} category='sports' />} />
-        <Route exact path="/technologyl" element={<News pageSize={10} category='technology' />} />
+        <Route key="general" exact path="/home" element={<News pageSize={10} category='general' />} />
+        <Route key="general" exact path="/general" element={<News pageSize={10} category='general' />} />
+        <Route key="business" exact path="/business" element={<News pageSize={10} category='business' />} />
+        <Route key="health" exact path="/entertainment" element={<News pageSize={10} category='health' />} />
+        <Route key="science" exact path="/science" element={<News pageSize={10} category='science' />} />
+        <Route key="sports" exact path="/sports" element={<News pageSize={10} category='sports' />} />
+        <Route key="technology" exact path="/technology" element={<News pageSize={10} category='technology' />} />
       </Routes>
     </>
   );

@@ -8,14 +8,14 @@ function App() {
 
       <NavBar />
       <Routes>
-        <Route key="general" exact path="/" element={<News pageSize={10} category='general' />} />
-        <Route key="business" exact path="/business" element={<News pageSize={10} category='business' />} />
-        <Route key="general" exact path="/general" element={<News pageSize={10} category='general' />} />
-        <Route key="general" exact path="/entertainment" element={<News pageSize={10} category='entertainment' />} />
-        <Route key="health" exact path="/health" element={<News pageSize={10} category='health' />} />
-        <Route key="science" exact path="/science" element={<News pageSize={10} category='science' />} />
-        <Route key="sports" exact path="/sports" element={<News pageSize={10} category='sports' />} />
-        <Route key="technology" exact path="/technology" element={<News pageSize={10} category='technology' />} />
+        <Route exact path="/" element={<News key="general" pageSize={10} category='general' />} />
+        <Route exact path="/business" element={<News key="business" pageSize={10} category='business' />} />
+        <Route exact path="/general" element={<News key="general" pageSize={10} category='general' />} />
+        <Route exact path="/entertainment" element={<News key="entertainment" pageSize={10} category='entertainment' />} />
+        <Route exact path="/health" element={<News key="health" pageSize={10} category='health' />} />
+        <Route exact path="/science" element={<News key="science" pageSize={10} category='science' />} />
+        <Route exact path="/sports" element={<News key="sports" pageSize={10} category='sports' />} />
+        <Route exact path="/technology" element={<News key="technology" pageSize={10} category='technology' />} />
       </Routes>
     </>
   );

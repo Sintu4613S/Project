@@ -5,14 +5,14 @@ import PropTypes from 'prop-types'
 
 export class News extends Component {
   static defaultProps = {
-    country: 'in',
+    country: 'us',
     category: 'general',
-    pageSize: 10
+    page: 10
   }
   static propTypes = {
     country: PropTypes.string,
     category: PropTypes.string,
-    pageSize: PropTypes.number
+    page: PropTypes.number
   }
   state = {
     articles: [],
@@ -20,60 +20,36 @@ export class News extends Component {
     page: 1,
     totalResults: 0
   }
-  updateNews = async (page = 1) => {
-    const url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&sortBy=publishedAt&apiKey=8f5eefadd07341a8ac2f4b3c90a296ac&page=${page}&pageSize=${this.props.pageSize}`
+  async updateNews() {
+    let url = (`https://newsapi.org/v2/top-headlines?category=${this.props.category}&from=from=2026-03-25&sortBy=publishedAt&apiKey=8f5eefadd07341a8ac2f4b3c90a296ac&page=${this.state.page}&pageSize=${this.props.pageSize}`)
     this.setState({ loading: true })
-    const data = await fetch(url)
-    const parseData = await data.json()
+    let data = await fetch(url)
+    let parseData = await data.json()
+    console.log(parseData)
     this.setState({
       articles: parseData.articles,
       loading: false,
-      page,
       totalResults: parseData.totalResults
     })
   }
-  componentDidMount() {
+  async componentDidMount() {
+    await this.updateNews()
+  }
+  handleNext = async () => {
+
+    this.setState({
+      page: this.state.page + 1
+    })
     this.updateNews()
   }
-
-  // async componentDidMount() {
-
-
-  //   console.log(parseData)
-  // }
-  handleNext = async () => {
-    // console.log("hi i am next")
-    // let url = (`https://newsapi.org/v2/top-headlines?category=${this.props.category}&from=from=2026-03-25&sortBy=publishedAt&apiKey=8f5eefadd07341a8ac2f4b3c90a296ac&page=${this.state.page + 1}&pageSize=${this.props.pageSize}`)
-    // this.setState({ loading: true })
-    // let data = await fetch(url)
-    // let parseData = await data.json()
-    // this.setState({
-    //   articles: parseData.articles,
-    //   loading: false,
-    //   page: this.state.page + 1,
-    //   totalResults: parseData.totalResults})
-    await this.updateNews(this.state.page + 1)
-
-  }
   handlePrevious = async () => {
-    if (this.state.page > 1) {
-      // // console.log("hi i am previous")
-      // let url = (`https://newsapi.org/v2/top-headlines?category=${this.props.category}&from=2026-03-25&sortBy=publishedAt&apiKey=8f5eefadd07341a8ac2f4b3c90a296ac&page=${this.state.page - 1}&pageSize=${this.props.pageSize}`)
-      // this.setState({ loading: true })
-      // let data = await fetch(url)
-      // let parseData = await data.json()
-      // this.setState({
-      //   articles: parseData.articles,
-      //   loading: false,
-      //   page: this.state.page - 1,
-      //   totalResults: parseData.totalResults
-      // })
-      await this.updateNews(this.state.page - 1)
 
-    }
+    this.setState({
+      page: this.state.page - 1
+    })
+    this.updateNews()
 
   }
-
 
   render() {
     return (

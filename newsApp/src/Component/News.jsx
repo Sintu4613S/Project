@@ -8,7 +8,7 @@ export class News extends Component {
   static defaultProps = {
     country: 'us',
     category: 'general',
-    pageSize: 10
+    pageSize: 20
   }
   static propTypes = {
     country: PropTypes.string,
@@ -83,11 +83,11 @@ export class News extends Component {
           {/* {this.state.loading && <Loading />} */}
           <InfiniteScroll
             dataLength={this.state.articles.length}
+
             next={this.fetchMoreData}
-            hasMore={this.state.totalResults === 0 || this.state.articles.length < this.state.totalResults}
+            hasMore={this.state.articles.length === 0 || this.state.articles.length !== this.state.totalResults}
             loader={<Loading />}
           >
-
             <div className='container my-3'>
               <div className="row">
                 {/* {this.state.articles?.map((element) => { */}

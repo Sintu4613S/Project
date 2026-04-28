@@ -19,7 +19,7 @@ export class News extends Component {
     articles: [],
     loading: true,
     page: 1,
-    totalResults: 0
+    totalResults: null
   }
   async updateNews() {
     this.setState({ loading: true })
@@ -81,11 +81,11 @@ export class News extends Component {
       <>
         <div className="container">
           <h1 className='my-4 text-center'>News- About {this.props.category}</h1>
-          {this.state.loading && <Loading />}
+          {/* {this.state.loading && <Loading />} */}
           <InfiniteScroll
             dataLength={this.state.articles.length}
             next={this.fetchMoreData}
-            hasMore={this.state.articles.length < (this.state.totalResults || 0)}
+            hasMore={this.state.totalResults === null || this.state.articles.length < this.state.totalResults}
             loader={<Loading />}
           >
 
@@ -100,7 +100,7 @@ export class News extends Component {
 
                         title={element.title}
                         desc={element.description}
-                        imgUrl={element.urlToImage ? element.urlToImage : 'https://cdn-8.motorsport.com/images/amp/YN7wWrj6/s6/big-crash-at-talladega.jpg'}
+                        imgUrl={element.urlToImage ? element.urlToImage : 'hero.png'}
                         url={element.url}
                       /></div>
                   )

@@ -23,7 +23,7 @@ export class News extends Component {
   }
   async updateNews() {
     this.setState({ loading: true })
-    const url = (`https://newsapi.org/v2/top-headlines?category=${this.props.category}&sortBy=publishedAt&apiKey=8f5eefadd07341a8ac2f4b3c90a296ac&page=${this.state.page}&pageSize=${this.props.pageSize}`)
+    const url = (`https://newsapi.org/v2/top-headlines?category=${this.props.category}&sortBy=publishedAt&apiKey=${this.props.apiKey}&page=${this.state.page}&pageSize=${this.props.pageSize}`)
     try {
       const data = await fetch(url)
       const parseData = await data.json()
@@ -31,7 +31,6 @@ export class News extends Component {
       this.setState({
         articles: parseData.articles,
         totalResults: parseData.totalResults,
-        loading: false
       })
     } catch (error) {
       console.error('Error fetching news:', error)

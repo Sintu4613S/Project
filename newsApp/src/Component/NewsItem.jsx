@@ -6,9 +6,9 @@ export class NewsItem extends Component {
     return (
       <>
         <div className="container">
-          <div className="card">
-            <img src={imgUrl ? imgUrl : 'Loading....'} className="card-img-top" alt="img" />
-            <div className="card-body text-center">
+          <div className="card" style={{ minHeight: '400px' }}>
+            <img src={imgUrl} className="card-img-top" alt="img" />
+            <div className="card-body text-center" >
               <h5 className="card-title">{title}</h5>
               <p className="card-text">{desc}</p>
               <a href={url} target="_blank" rel="noopener noreferrer" className="btn btn-sm btn-dark ">Read More</a>

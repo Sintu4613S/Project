@@ -19,7 +19,7 @@ export class News extends Component {
     articles: [],
     loading: true,
     page: 1,
-    totalResults: null
+    totalResults: 0
   }
   async updateNews() {
     this.setState({ loading: true })
@@ -27,7 +27,7 @@ export class News extends Component {
     try {
       const data = await fetch(url)
       const parseData = await data.json()
-      console.log(parseData)
+      //console.log(parseData)
       this.setState({
         articles: parseData.articles,
         totalResults: parseData.totalResults,
@@ -44,12 +44,12 @@ export class News extends Component {
 
   fetchMoreData = async () => {
     const nextPage = this.state.page + 1;
-    this.setState({ loading: true })
     const url = (`https://newsapi.org/v2/top-headlines?category=${this.props.category}&sortBy=publishedAt&apiKey=${this.props.apiKey}&page=${nextPage}&pageSize=${this.props.pageSize}`)
     try {
       const data = await fetch(url)
       const parseData = await data.json()
       console.log(parseData)
+      console.log(parseData.totalResults)
       this.setState({
         articles: this.state.articles.concat(parseData.articles),
         totalResults: parseData.totalResults,
@@ -84,7 +84,7 @@ export class News extends Component {
           <InfiniteScroll
             dataLength={this.state.articles.length}
             next={this.fetchMoreData}
-            hasMore={this.state.totalResults === null || this.state.articles.length < this.state.totalResults}
+            hasMore={this.state.totalResults === 0 || this.state.articles.length < this.state.totalResults}
             loader={<Loading />}
           >
 

@@ -5,7 +5,9 @@ import News from './Component/News'
 import { Routes, Route } from "react-router-dom";
 
 export class App extends Component {
-  apiKey = '8f5eefadd07341a8ac2f4b3c90a296ac'
+  apiKey = import.meta.env.VITE_NEWS_API
+  // If you want to use a fallback key during development, you can uncomment the line below:
+  // apiKey = import.meta.env.VITE_NEWS_API || '8f5eefadd07341a8ac2f4b3c90a296ac'
   render() {
     return (
       <div>

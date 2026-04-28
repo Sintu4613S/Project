@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 
 export class NewsItem extends Component {
   render() {
@@ -11,7 +12,7 @@ export class NewsItem extends Component {
             <div className="card-body text-center" >
               <h5 className="card-title">{title}</h5>
               <p className="card-text">{desc}</p>
-              <a href={url} target="_blank" rel="noopener noreferrer" className="btn btn-sm btn-dark ">Read More</a>
+              <Link to={url} target="_blank" rel="noopener noreferrer" className="btn btn-sm btn-dark ">Read More</Link>
             </div>
           </div>
         </div>

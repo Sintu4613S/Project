@@ -5,6 +5,7 @@ import Navbar from "./Components/Navbar";
 import Textform from "./Components/Textform";
 import About from "./Components/About";
 import Contact from "./Components/Contact";
+
 function App() {
   const [mode, setMode] = useState('light');
   const toggleMode = () => {

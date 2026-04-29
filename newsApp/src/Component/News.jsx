@@ -78,7 +78,7 @@ export class News extends Component {
   render() {
     return (
       <>
-        <div className="container">
+        <div className="container" style={{ marginTop: '70px' }}>
           <h1 className='my-4 text-center'>News- About {this.props.category}</h1>
           {/* {this.state.loading && <Loading />} */}
           <InfiniteScroll

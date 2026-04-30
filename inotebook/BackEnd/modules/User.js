@@ -2,11 +2,8 @@ import mongoose, { Schema } from 'mongoose';
 //const Schema = mongoose;
 
 const UserSchema = new Schema({
-  Fname: {
-    type: String,
-    required: true,
-  },
-  Lname: {
+
+  name: {
     type: String,
     required: true,
   },
@@ -23,12 +20,13 @@ const UserSchema = new Schema({
     default: Date.now
   },
 
-  comments: [{
-    body: String,
-    date: Date
-  }],
+  // comments: [{
+  //   body: String,
+  //   date: Date
+  // }],
 
 })
 
-const user = mongoose.model('user', UserSchema);
-export default user
+const User = mongoose.model('User', UserSchema);
+export default User
+

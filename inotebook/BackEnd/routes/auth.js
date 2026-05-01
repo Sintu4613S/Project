@@ -1,45 +1,59 @@
 
-import { Router } from "express";
-import User from "../modules/User.js";
-import { body, validationResult } from 'express-validator';
+
+import { Router } from 'express';
+import User from '../modules/User.js';
+import { body, validationResult } from "express-validator";
+
 const router = Router();
-// Api is -> http://loacalhost:5000/api/auth
+
+// now we use the post method instead of get
 router.post('/',
+  // define the some Validation for name, email & pass
   [
-    body('name', 'Enter a Name').isLength({ min: 2, max: 100 }),
-    body('email', 'Enter a Valid Email').isEmail(),
-    body('password', 'Password mustbe atleast 8 characters').isLength({ min: 8, max: 16 })
+    body('name', 'Enter a name').isLength({ min: 3, max: 100 }),
+    body('email', "enter a Valid Email").isEmail(),
+    body('pasword', "Password must be atleast 8 character").isLength({ min: 8, max: 16 })
   ],
+
   async (req, res) => {
-    //Errros that contains the validation errors from the above rules
-    const errors = validationResult(req);
-    // If there are errors, return bad request and the errors in json format
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
+    //Erros that contains th validation from the above
+    const errors = validationResult(req)
+    // if there are errors then return a bad request and the erriosr in json format
+    if (!errors.isEmpty) {
+      return res.status(401).json({ errors: errors.array() });
     }
+
     try {
+
       let user = await User.findOne({ email: req.body.email })
       if (user) {
-        return res.status(401).json({ error: "Sorry User With This Email is Already exist" })
+        return res.status(401).json({ error: "Sorry User with this email already Exist" })
       }
 
       user = await User.create({
         name: req.body.name,
         email: req.body.email,
-        password: req.body.password,
+        password: req.body.password
       })
       res.json(user)
     }
     catch (err) {
       console.log(err.message)
-      res.status(500).send("Some Error Occured")
+      res.status(500).send('Some error Occured')
     }
 
-    //If there are no errors, create a new user and save it to the database
-    // res.send("Data saved successfully" + '\n' + JSON.stringify(req.body, null, 2));
+
+    //this is simple method to display the data
+    // res.send("Data saved successfully" + '\n' + JSON.stringify(req.body))
     // console.log(req.body)
-    // const user = new User(req.body);
-    // const saveData = user.save();
-    // res.send("Data saved successfully" + '\n' + JSON.stringify(req.body, null, 2) + '\n' + JSON.stringify(saveData, null, 2));
+
+
+    // This metod is used to display data on http:localhost:5000/api/auth and add 
+    // data in the MongoDb compass database.In this We can Add the mulitiple time same data.
+    //So we use validator express  to make unique in every data.which means we can store it only one time.
+
+    // const user = new User(req.body)
+    // const saveUser = user.save()
+    // res.send("Data saved Successfully" + '\n' + JSON.stringify(req.body, null, 2) + '\n' + JSON.stringify(saveUser, null, 2))
   })
-export default router;
+export default router

@@ -3,7 +3,7 @@ import { Router } from "express";
 import User from "../modules/User.js";
 import { body, validationResult } from 'express-validator';
 const router = Router();
-
+// Api is -> http://loacalhost:5000/api/auth
 router.post('/',
   [
     body('name', 'Enter a Name').isLength({ min: 2, max: 100 }),

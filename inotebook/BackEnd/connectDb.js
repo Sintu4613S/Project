@@ -1,22 +1,23 @@
-/* eslint-env node */
-/* global process */
-import mongoose from "mongoose";
-import dotenv from "dotenv";
-dotenv.config()
+/*global process*/
+import mongoose from 'mongoose';
+import dotenv from 'dotenv'
+dotenv.config();
 
 if (!process.env.MONGODB_URI) {
-  throw new Error("MONGODB_URI is not defined in .env file");
+  throw new Error("Invalid MONGODB_URI in the .env file")
 }
-
 const connectToMongo = async () => {
   try {
     await
       mongoose.connect(process.env.MONGODB_URI)
-    console.log("Connected to MongoDB successfully");
+    console.log("MongoDB connected Successfully")
+
   }
-  catch (error) {
-    console.error("Error connecting to MongoDB:", error);
-    process.exit(1); // Exit the process with failure
+  catch (err) {
+    console.log('Database Connection is Due to some Error', err)
+    process.exit(1);
   }
+
 }
-export default connectToMongo;
+
+export default connectToMongo

@@ -6,16 +6,29 @@ const router = Router();
 
 router.post('/',
   [
-    body('name').isLength({ min: 2, max: 100 }),
-    body('email').isEmail(),
-    body('password').isLength({ min: 8, max: 16 })
+    body('name', 'Enter a Name').isLength({ min: 2, max: 100 }),
+    body('email', 'Enter a Valid Email').isEmail(),
+    body('password', 'Password mustbe atleast 8 characters').isLength({ min: 8, max: 16 })
   ],
   (req, res) => {
+    //Errros that contains the validation errors from the above rules
     const errors = validationResult(req);
+    // If there are errors, return bad request and the errors in json format
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
-    res.send("Data saved successfully" + '\n' + JSON.stringify(req.body, null, 2));
+    User.create({
+      name: req.body.name,
+      email: req.body.email,
+      password: req.body.password,
+    }).then(user => res.json(user))
+      .catch(err => {
+        console.log("error:", err)
+        res.json({ error: 'Please enter a Valid Value', message: err.message })
+      }
+      )
+    //If there are no errors, create a new user and save it to the database
+    // res.send("Data saved successfully" + '\n' + JSON.stringify(req.body, null, 2));
     // console.log(req.body)
     // const user = new User(req.body);
     // const saveData = user.save();

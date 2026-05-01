@@ -5,7 +5,8 @@ import noteRoutes from './routes/note.js'
 connectToMongo();
 const app = express()
 const port = 3000
-app.use(express.json());
+
+app.use(express.json())
 
 app.use('/api/auth', authRoutes);
 app.use('/api/note', noteRoutes);

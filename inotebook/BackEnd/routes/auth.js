@@ -1,10 +1,17 @@
-
-
+/* global process */
 import { Router } from 'express';
 import User from '../modules/User.js';
 import { body, validationResult } from "express-validator";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken"
+import dotenv from "dotenv"
 
+// this is the method to use the .nv file data in this file and we can use the data 
+// by process.env.KEY_NAME
+dotenv.config()
+
+
+// this is the method to create a router object and we can use this router object to define the routes in this file and export it to index.js file and use it there.
 const router = Router();
 
 // now we use the post method instead of get
@@ -35,34 +42,44 @@ router.post('/',
       if (!req.body.password) {
         res.status(401).json("Passwor is required")
       }
-      // generate a Hash value  of the password to secure the Password.
+      // if password is exist then we have to hash the password by using bcryptjs and store the hashed password in the database
       const salt = await bcrypt.genSalt(10);
+      // this is the method to hash the password and store in the database
       const secPass = await bcrypt.hash(req.body.password, salt);
 
-      // Load hash from your password DB
+      // ye method is used to compare the password that user enter and the hashed password that store in the database.
       await bcrypt.compare(req.body.password, secPass, (err, res) => {
-
         (res === true)
-        console.log("Password is Match")
-
-      });
-      // true
-      await bcrypt.compare("req.body.password", secPass, (err, res) => {
-        res === false
-        return 1;
+        console.log("Password is correct")
+      }); // true
+      await bcrypt.compare(req.body.password, secPass, (err, res) => {
+        (res === false)
+        console.log("Password is incorrect")
       }); // false
 
-      // nahi toh ye  data mongodb m store kro. 
+      // this is the method to create a new user and store in the database
       user = await User.create({
         name: req.body.name,
         email: req.body.email,
         password: secPass
       })
-      res.json(user)
+      // ye data se ek object banao jisme user ka id hoga
+      const data = {
+        user: {
+          id: user.id
+        }
+
+      }
+      //  generate a authtoken by using the jwt.sign() method and pass the data and secret key from .env file
+      const authtoken = jwt.sign(data, process.env.JWT_SECRET_KEY)
+      res.json({ authtoken })
+
+      // res.json(user)
     }
     // catch kro agr koi error method m h toh
     catch (err) {
       console.log(err.message)
+
       res.status(500).send('Some error Occured')
     }
 

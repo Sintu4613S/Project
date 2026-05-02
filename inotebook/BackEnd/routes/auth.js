@@ -3,7 +3,7 @@
 import { Router } from 'express';
 import User from '../modules/User.js';
 import { body, validationResult } from "express-validator";
-import bcrypt, { hashSync } from 'bcrypt'
+import bcrypt from "bcrypt";
 
 const router = Router();
 
@@ -31,11 +31,26 @@ router.post('/',
       if (user) {
         return res.status(401).json({ error: "Sorry User with this email already Exist" })
       }
+      //it check the passowrd is or not
       if (!req.body.password) {
         res.status(401).json("Passwor is required")
       }
+      // generate a Hash value  of the password to secure the Password.
       const salt = await bcrypt.genSalt(10);
       const secPass = await bcrypt.hash(req.body.password, salt);
+
+      // Load hash from your password DB
+      await bcrypt.compare(req.body.password, secPass, (err, res) => {
+
+        (res === true)
+        console.log("Password is Match")
+
+      });
+      // true
+      await bcrypt.compare("req.body.password", secPass, (err, res) => {
+        res === false
+        return 1;
+      }); // false
 
       // nahi toh ye  data mongodb m store kro. 
       user = await User.create({

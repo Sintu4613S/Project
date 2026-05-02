@@ -3,6 +3,7 @@
 import { Router } from 'express';
 import User from '../modules/User.js';
 import { body, validationResult } from "express-validator";
+import bcrypt, { hashSync } from 'bcrypt'
 
 const router = Router();
 
@@ -24,19 +25,27 @@ router.post('/',
     }
 
     try {
-
+      // check whether the user with same email is exist or not.
       let user = await User.findOne({ email: req.body.email })
+      //if exist then return this
       if (user) {
         return res.status(401).json({ error: "Sorry User with this email already Exist" })
       }
+      if (!req.body.password) {
+        res.status(401).json("Passwor is required")
+      }
+      const salt = await bcrypt.genSalt(10);
+      const secPass = await bcrypt.hash(req.body.password, salt);
 
+      // nahi toh ye  data mongodb m store kro. 
       user = await User.create({
         name: req.body.name,
         email: req.body.email,
-        password: req.body.password
+        password: secPass
       })
       res.json(user)
     }
+    // catch kro agr koi error method m h toh
     catch (err) {
       console.log(err.message)
       res.status(500).send('Some error Occured')

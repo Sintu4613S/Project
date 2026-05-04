@@ -50,16 +50,6 @@ router.post('/createuser',
       // this is the method to hash the password and store in the database
       const secPass = await bcrypt.hash(req.body.password, salt);
 
-      // ye method is used to compare the password that user enter and the hashed password that store in the database.
-      // const isMatch = await bcrypt.compare(req.body.password, secPass);
-      // if (!isMatch) {
-      //   return res.status(401).json({ error: "Please enter the correct password" })
-      // }
-      // else {
-      //   console.log("Password is correct")
-      // }
-
-
       // this is the method to create a new user and store in the database
       user = await User.create({
         name: req.body.name,
@@ -117,7 +107,7 @@ router.post('/login', [
       if (!user) {
         return res.status(401).json({ error: "Sorry, User not found" })
       }
-
+      // ye method is used to compare the password that user enter and the hashed password that store in the database.
       const isMatch = await bcrypt.compare(password, user.password);
       if (!isMatch) {
         return res.status(401).json({ error: "Please enter the correct password" })

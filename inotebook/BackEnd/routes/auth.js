@@ -16,6 +16,7 @@ const router = Router();
 
 // now we use the post method instead of 
 // now the Api path is http://localhost:5000/api/auth/createuser and we can use this api to create a new user and store in the database and return the response to the client.
+//Route1: Create a User using: POST "/api/auth/createuser". No login required
 router.post('/createuser',
   // define the some Validation for name, email & pass
   [
@@ -92,6 +93,7 @@ router.post('/createuser',
     // res.send("Data saved Successfully" + '\n' + JSON.stringify(req.body, null, 2) + '\n' + JSON.stringify(saveUser, null, 2))
   })
 // make a route for User Login and we can use this route to login the user and return the authtoken to the client and we can use this authtoken to access the protected routes.
+//Route2: Authenticate a User using: POST "/api/auth/login". No login required
 router.post('/login', [
   body('email',).isEmail(),
   body('password', "Password cannot be Null").exists()

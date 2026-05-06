@@ -15,12 +15,12 @@ const NotesSchema = new Schema({
     default: Date.now
   },
 
-  comments: [{
+  tag: {
     body: String,
     date: Date
-  }],
+  }
 
 })
 
-const Notes = mongoose.model('Notes', NotesSchema);
+const Notes = mongoose.model('Note', NotesSchema);
 export default Notes

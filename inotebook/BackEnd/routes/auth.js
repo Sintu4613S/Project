@@ -5,6 +5,7 @@ import { body, validationResult } from "express-validator";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken"
 import dotenv from "dotenv"
+import fetchuser from '../middleware/fetchuser.js';
 
 // this is the method to use the .nv file data in this file and we can use the data 
 // by process.env.KEY_NAME
@@ -26,7 +27,7 @@ router.post('/createuser',
   ],
   // this is the method to handle the post request and we can use this method to save the data in the database and return the response to the client.
   async (req, res) => {
-    //Erros that contains th validation from the above
+    // ValidationResult is the method to check the validation that we have defined in the above array and we can use this method to check the validation and return the errors if there are any errors in the validation.
     const errors = validationResult(req)
     // if there are errors then return a bad request and the errors in json format
     if (!errors.isEmpty) {
@@ -135,4 +136,26 @@ router.post('/login', [
     }
 
   })
+//Route3: Get loggedin User Details using: POST "/api/auth/getuser". Login required
+router.post('/getuser', fetchuser, async (req, res) => {
+  try {
+    console.log("Request user object:", req.user);
+    //get the user id from the req.user object that we have set in the fetchuser middleware and we can use this user id to find the user in the database and return the response to the client. 
+    const userId = req.user.id
+    if (!userId) {
+      return res.status(401).json({ error: "Please Enter the Right Token Crecidental" })
+    }
+    console.log("User ID from token:", userId);
+    // this is the method to find the user in the database by using the user id and we can use this method to return the user details to the client and we can also use this method to check whether the user is exist or not in the database.
+    const user = await User.findById(userId).select("-password")
+
+    res.send(user)
+  }
+
+  catch (err) {
+    console.log(err.message)
+
+    res.status(500).send('Internal Server Error')
+  }
+})
 export default router

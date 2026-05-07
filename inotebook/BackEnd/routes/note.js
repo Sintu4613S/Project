@@ -93,6 +93,6 @@ router.delete('/deletenote/:id', fetchuser, async (req, res) => {
   }
   // this is the method to find the note by id and delete the note from the database and return the response to the client. where req.param.id is the id of the note that we want to delete and we can use this id to find the note in the database and return the response to the client.
   note = await Note.findByIdAndDelete(req.params.id)
-  res.json(note)
+  res.json({ success: "note Has Been deleted", note })
 })
 export default router

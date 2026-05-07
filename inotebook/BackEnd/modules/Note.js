@@ -17,14 +17,13 @@ const NoteSchema = new Schema({
     type: String,
     require: true
   },
+  tag: {
+    type: String,
+    default: "General"
+  },
   date: {
     type: Date,
     default: Date.now
-  },
-
-  tag: {
-    body: String,
-    date: Date
   }
 
 })

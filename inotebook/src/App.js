@@ -1,26 +1,20 @@
-import './App.css';
 import { Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar'
 import Home from './components/Home'
 import About from './components/About'
-// eslint-disable-next-line
-
-
+import NoteState from './context/Notes/NoteState';
 
 
 function App() {
   return (
     <>
-
-
-      <Routes>
+      <NoteState>
         <Navbar />
-        <Route path="/home" exact element={<Home />} />
-        <Route path="/about" exact element={<About />} />
-      </Routes>
-
-
-
+        <Routes>
+          <Route path="/home" element={<Home />} />
+          <Route path="/about" element={<About />} />
+        </Routes>
+      </NoteState>
     </>
   );
 }

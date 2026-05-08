@@ -1,11 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 export default function Navbar() {
-  const navLinkStyles = ({ isActive }) => ({
-    color: isActive ? '#007bff' : '#333',
-    fontWeight: isActive ? 'bold' : 'normal',
-    padding: '5px 10px'
-  });
   return (
     <>
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
@@ -25,14 +20,14 @@ export default function Navbar() {
             <span className="navbar-toggler-icon" />
           </button>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+            <ul className="na0..............................0vbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item">
-                <Link className="nav-link" style={{ navLinkStyles }} aria-current="page" to='/home'>
+                <Link className="nav-link" aria-current="page" to='/home'>
                   Home
                 </Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" style={{ navLinkStyles }} aria-current="page" to='/about'>
+                <Link className="nav-link" aria-current="page" to='/about'>
                   About
                 </Link>
               </li>

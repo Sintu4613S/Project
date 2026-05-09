@@ -11,8 +11,8 @@ function App() {
       <NoteState>
         <Navbar />
         <Routes>
-          <Route path="/home" element={<Home />} />
-          <Route path="/about" element={<About />} />
+          <Route exact path="/" element={<Home />} />
+          <Route exact path="/about" element={<About />} />
         </Routes>
       </NoteState>
     </>

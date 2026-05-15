@@ -1,5 +1,18 @@
-import React from 'react'
+import React, { useContext, useState } from "react"
+import notecontext from "../context/Notes/noteContext"
 const AddNote = () => {
+  const context = useContext(notecontext)
+  // eslint-disable-next-line
+  const { addNote } = context
+  const [note, setNote] = useState({ title: "", description: "", tag: "" })
+  // console.log(addNote)
+  const handleAddNote = (e) => {
+    e.preventDefault()
+    addNote(note.title, note.description, note.tag)
+  }
+  const onChange = (e) => {
+    setNote({ ...note, [e.target.name]: e.target.value })
+  }
   return (
     <div className='container'>
       <div className="container my-3 text-center">
@@ -16,7 +29,8 @@ const AddNote = () => {
             </label>
             <input type="text" className="form-control"
               id="title" name="title"
-              placeholder="Add a Title"
+              value={note.title}
+              onChange={onChange}
             />
           </div>
           <div className="mb-3">
@@ -27,10 +41,11 @@ const AddNote = () => {
               className="form-control"
               id="description" name="description"
               rows={2} style={{ resize: "none" }}
-              defaultValue={""}
+              value={note.description}
+              onChange={onChange}
             />
             <div className="col-12 my-2">
-              <button className="btn btn-primary" type="submit">Submit</button>
+              <button className="btn btn-primary" type="submit" onClick={handleAddNote}>Submit</button>
             </div>
           </div>
         </>

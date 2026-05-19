@@ -42,9 +42,9 @@ const Notestate = (props) => {
   };
 
   //Delete a Note
-  const deleteNote = async (id) => {
+  const deleteNote = async (_id) => {
     //Api call to Delete note
-    const response = await fetch(`${host}/api/note/deletenote/${id}`, {
+    const response = await fetch(`${host}/api/note/deletenote/${_id}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -55,8 +55,7 @@ const Notestate = (props) => {
 
     const result = await response.json();
     console.log(result)
-
-    setnote(note.filter((note) => note.id !== id));
+    setnote(note.filter((note) => note._id !== _id));
   };
   //Edit a Note
   const editNote = async (id, title, description, tag) => {

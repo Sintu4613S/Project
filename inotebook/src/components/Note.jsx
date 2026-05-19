@@ -2,8 +2,6 @@ import React, { useContext, useEffect, useRef } from "react"
 import notecontext from "../context/Notes/noteContext"
 import Noteitem from "./Noteitem"
 const Note = () => {
-
-
   const context = useContext(notecontext)
   // eslint-disable-next-line
   const { notes, fetchAllNotes } = context
@@ -14,29 +12,31 @@ const Note = () => {
   }, [])
 
   const ref = useRef(null)
-  const updatenote = () => {
+  const updatenote = (note) => {
     console.log("updete")
-    ref.current = ref.current.click()
+    ref.current.click()
 
   }
 
   return (
     <>
       <div>
-        {/* Button trigger modal */}
+        {/* Hidden trigger for programmatic open */}
         <button
           type="button"
-          className="btn btn-primary"
-          data-toggle="modal"
-          data-target="#exampleModalCenter"
+          className="btn btn-primary d-none"
+          data-bs-toggle="modal"
+          data-bs-target="#exampleModalCenter"
+          ref={ref}
+
         >
-          Launch demo modal
+          Open modal
         </button>
         {/* Modal */}
         <div
           className="modal fade"
           id="exampleModalCenter"
-          role="dialog"
+          tabIndex="-1"
           aria-labelledby="exampleModalCenterTitle"
           aria-hidden="true"
         >
@@ -48,19 +48,17 @@ const Note = () => {
                 </h5>
                 <button
                   type="button"
-                  className="close"
-                  data-dismiss="modal"
+                  className="btn-close"
+                  data-bs-dismiss="modal"
                   aria-label="Close"
-                >
-                  <span aria-hidden="true">×</span>
-                </button>
+                />
               </div>
               <div className="modal-body">...</div>
               <div className="modal-footer">
                 <button
                   type="button"
                   className="btn btn-secondary"
-                  data-dismiss="modal"
+                  data-bs-dismiss="modal"
                 >
                   Close
                 </button>

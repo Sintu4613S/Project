@@ -11,7 +11,9 @@ const Noteitem = (props) => {
   // const HandleEdit = () => {
 
   // }
-  const { note } = props
+
+
+  const { note, updatenote } = props
   return (
     <>
       <div className="col-md-3 ">
@@ -24,7 +26,7 @@ const Noteitem = (props) => {
             <span className="material-symbols-outlined mx-2" onClick={HandleDelete}>
               delete
             </span>
-            <span className="material-symbols-outlined mx-2">
+            <span className="material-symbols-outlined mx-2" onClick={() => { updatenote(note) }}>
               edit_square
             </span>
 

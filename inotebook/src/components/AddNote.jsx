@@ -28,7 +28,6 @@ const AddNote = () => {
 
       <div className="container my-3">
         <h2>Add a Note</h2>
-        // make a form to add a note with title, description and tag input fields and a submit button. onChange event is used to update the state of the note object whenever the user types in the input fields. handleAddNote function is called when the submit button is clicked to add the new note.
         <>
           <div className="mb-3">
             <label htmlFor="title" className="form-label">
@@ -63,7 +62,7 @@ const AddNote = () => {
             </div>
 
             <div className="col-12 my-2">
-              <button className="btn btn-primary" type="submit" onClick={handleAddNote}>Submit</button>
+              <button disabled={note.title.length < 5 || note.description.length < 5} className="btn btn-primary" type="submit" onClick={handleAddNote}>Add Note</button>
             </div>
           </div>
         </>

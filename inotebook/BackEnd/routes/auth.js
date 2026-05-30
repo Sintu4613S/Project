@@ -27,11 +27,12 @@ router.post('/createuser',
   ],
   // this is the method to handle the post request and we can use this method to save the data in the database and return the response to the client.
   async (req, res) => {
+    let success = false;
     // ValidationResult is the method to check the validation that we have defined in the above array and we can use this method to check the validation and return the errors if there are any errors in the validation.
     const errors = validationResult(req)
     // if there are errors then return a bad request and the errors in json format
     if (!errors.isEmpty) {
-      return res.status(401).json({ errors: errors.array() });
+      return res.status(401).json({ success, errors: errors.array() });
     }
 
     try {
@@ -40,11 +41,11 @@ router.post('/createuser',
       let user = await User.findOne({ email: req.body.email })
       //if exist then return this
       if (user) {
-        return res.status(401).json({ error: "Sorry User with this email already Exist" })
+        return res.status(401).json({ success, error: "Sorry User with this email already Exist" })
       }
       //it check the passowrd is or not
       if (!req.body.password) {
-        res.status(401).json("Passwor is required")
+        res.status(401).json({ success, error: "Password is required" })
       }
       // if password is exist then we have to hash the password by using bcryptjs and store the hashed password in the database
       //genSaltis the method to generate a salt and the number 10 is the number of rounds to genearte the salt .
@@ -68,7 +69,7 @@ router.post('/createuser',
       }
       //  generate a authtoken by using the jwt.sign() method and pass the data and secret key from .env file
       const authtoken = jwt.sign(data, process.env.JWT_SECRET_KEY)
-      res.json({ authtoken })
+      res.json({ success: true, authtoken })
 
       // res.json(user)
     }
@@ -102,21 +103,21 @@ router.post('/login', [
   async (req, res) => {
     const errors = validationResult(req)
     if (!errors.isEmpty) {
-      res.status(400).json({ errors: errors.array() })
+      return res.status(400).json({ success: false, errors: errors.array() })
     }
     // this is the method to get the email and password from the request body and we can use this email and password to check the user in the database and return the response to the client.
     const { email, password } = req.body
     try {
       let user = await User.findOne({ email })
       if (!user) {
-        return res.status(401).json({ error: "Sorry, User not found" })
+        return res.status(401).json({ success: false, error: "Sorry, User not found" })
       }
       // ye method is used to compare the password that user enter and the hashed password that store in the database.
       console.log("Entered password:", password);
       console.log("Stored password:", user.password);
       const isMatch = await bcrypt.compare(password, user.password);
       if (!isMatch) {
-        return res.status(401).json({ error: "Please enter the correct password" })
+        return res.status(401).json({ success: false, error: "Please enter the correct password" })
       }
       else {
         const data = {
@@ -125,7 +126,7 @@ router.post('/login', [
           }
         }
         const authtoken = jwt.sign(data, process.env.JWT_SECRET_KEY)
-        res.json({ authtoken })
+        res.json({ success: true, authtoken })
 
       }
     }

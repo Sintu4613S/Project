@@ -1,9 +1,75 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 const Signup = () => {
+  const host = "http://localhost:5000"
+  const [credential, setCredential] = useState({ name: "", email: "", password: "", cpassword: "" })
+  const { name, email, password } = credential;
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const response = await fetch(`${host}/api/auth/createuser`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ name, email, password })
+    });
+    const result = await response.json();
+    console.log(result)
+    if (result.success) {
+      // Save the auth token and redirect
+      localStorage.setItem('token', result.authtoken);
+      window.location.href = "/"
+    }
+    else {
+      alert("UserExist with the Email")
+    }
+  }
+  const onChange = (e) => {
+    setCredential({ ...credential, [e.target.name]: e.target.value })
+  }
+
   return (
     <div>
-      <h1>Signup</h1>
+      <form style={{ width: "50%", margin: " 50px auto" }} onSubmit={handleSubmit}>
+        <div className=" container mb-3">
+          <label htmlFor="email" className="form-label">
+            UserName
+          </label>
+          <input type="text" className="form-control" id="name"
+            name='name' onChange={onChange}
+
+          />
+          <label htmlFor="email" className="form-label my-2">
+            Email address
+          </label>
+          <input type="email" className="form-control" id="email"
+            aria-describedby="emailHelp" name='email' onChange={onChange}
+
+          />
+          <div id="emailHelp" className="form-text">
+            We'll never share your email with anyone else.
+          </div>
+        </div>
+        <div className="mb-3">
+          <label htmlFor="password" className="form-label">
+            Password
+          </label>
+          <input type="password" className="form-control" id="password" name='password'
+            onChange={onChange}
+          />
+        </div>
+        <div className="mb-3">
+          <label htmlFor="cpassword" className="form-label">
+            Confirm Password
+          </label>
+          <input type="cpassword" className="form-control" id="cpassword" name='cpassword'
+            onChange={onChange}
+          />
+        </div>
+        <button type="submit" className="btn btn-primary">
+          Submit
+        </button>
+      </form>
     </div>
   )
 }

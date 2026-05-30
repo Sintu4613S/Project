@@ -22,8 +22,6 @@ const Note = () => {
     setNote({ id: curentNote._id, etitle: curentNote.title, edescription: curentNote.description, etag: curentNote.tag })
     ref.current.click()
   }
-  // eslint-disable-next-line
-
   //eslint-disable-next-line
   const handleClick = () => {
     console.log("Updating the note...", note)

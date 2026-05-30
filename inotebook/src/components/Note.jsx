@@ -4,14 +4,17 @@ import Noteitem from "./Noteitem"
 const Note = () => {
   const context = useContext(notecontext)
   // eslint-disable-next-line
+  // Destructuring the notes, fetchAllNotes, and editNote from the context to use them in the component. notes is an array that contains all the notes, fetchAllNotes is a function that fetches all the notes from the backend server, and editNote is a function that allows us to edit a note when the update button is clicked.
   const { notes, fetchAllNotes, editNote } = context
+  //  note state is store the details of the note that is being edited.  It uses the e prefix for the title, description, and tag to differentiate them from the original note details. The id property is used to identify which note is being edited when the update button is clicked.  
   const [note, setNote] = useState({ id: "", etitle: "", edescription: "", etag: "" })
   //console.log(notes)
+  // useEffect is used to fetch all the notes from the backend server when the component mounts.The empty [] dependency array ensures that the fetchAllNotes function is called only once when the component is first rendered. 
   useEffect(() => {
     fetchAllNotes()
     // eslint-disable-next-line
   }, [])
-
+  // use the useref hook for the refercne of the modal and close button to programmatically open(when click on the edit icon) and refclose the modal when the update button is clicked respectively.
   const ref = useRef(null)
   const refclose = useRef(null)
   //eslint-disable-next-line

@@ -11,7 +11,13 @@ const Note = () => {
   //console.log(notes)
   // useEffect is used to fetch all the notes from the backend server when the component mounts.The empty [] dependency array ensures that the fetchAllNotes function is called only once when the component is first rendered. 
   useEffect(() => {
-    fetchAllNotes()
+    if (localStorage.getItem('token')) {
+      fetchAllNotes()
+    }
+    else {
+      window.location.href = "/login"
+    }
+
     // eslint-disable-next-line
   }, [])
   // use the useref hook for the refercne of the modal and close button to programmatically open(when click on the edit icon) and refclose the modal when the update button is clicked respectively.

@@ -11,7 +11,7 @@ const Notestate = (props) => {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'auth-token': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuZXdVc2VyIjp7ImlkIjoiNjlmOGRkZWVjOWFkNDg2OGRhN2FhM2RjIn0sImlhdCI6MTc3NzkxNzQyMn0.9Esq-jVY29L19-XgDvIBv_NZj936_PoWpISycKTQvsM"
+        'auth-token': localStorage.getItem('token')
       }
     });
     console.log("Fetching all notes......")
@@ -29,7 +29,7 @@ const Notestate = (props) => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'auth-token': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuZXdVc2VyIjp7ImlkIjoiNjlmOGRkZWVjOWFkNDg2OGRhN2FhM2RjIn0sImlhdCI6MTc3NzkxNzQyMn0.9Esq-jVY29L19-XgDvIBv_NZj936_PoWpISycKTQvsM"
+        'auth-token': localStorage.getItem('token')
       },
       // body is used to send the data to the server in JSON format. It includes the title, description, and tag of the note being added.
       body: JSON.stringify({ title, description, tag })
@@ -52,7 +52,7 @@ const Notestate = (props) => {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
-        'auth-token': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuZXdVc2VyIjp7ImlkIjoiNjlmOGRkZWVjOWFkNDg2OGRhN2FhM2RjIn0sImlhdCI6MTc3NzkxNzQyMn0.9Esq-jVY29L19-XgDvIBv_NZj936_PoWpISycKTQvsM"
+        'auth-token': localStorage.getItem('token')
       },
 
     });
@@ -72,7 +72,7 @@ const Notestate = (props) => {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
-        'auth-token': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuZXdVc2VyIjp7ImlkIjoiNjlmOGRkZWVjOWFkNDg2OGRhN2FhM2RjIn0sImlhdCI6MTc3NzkxNzQyMn0.9Esq-jVY29L19-XgDvIBv_NZj936_PoWpISycKTQvsM"
+        'auth-token': localStorage.getItem('token')
         //'auth-token': localStorage.getItem('token')
       },
       body: JSON.stringify({ title, description, tag })

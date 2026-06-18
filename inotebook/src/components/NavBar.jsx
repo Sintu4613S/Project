@@ -37,11 +37,13 @@ export default function Navbar() {
                 </Link>
               </li>
             </ul>
-            <form className="d-flex">
+            {!localStorage.getItem('token') ? <form className="d-flex">
               <Link className="btn btn-primary mx-2" to="/login" role="button">Login</Link>
               <Link className="btn btn-primary mx-2" to="/signup" role="button">Signup</Link>
-
-            </form>
+            </form> : <button className="btn btn-primary mx-2" onClick={() => {
+              localStorage.removeItem('token')
+              window.location.href = "/login"
+            }}>Logout</button>}
           </div>
         </div>
       </nav>
